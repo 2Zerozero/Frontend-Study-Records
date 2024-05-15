@@ -6,6 +6,7 @@
 이를 개선하고 애플리케이션을 원할하게 실행되게 하려면 재시도 전략을 구현해야 합니다.
 
 > 구현함으로서 얻는 이점
+
 1. 애플리케이션 중단 현상을 우아하게 처리하여 안정성과 사용자 경험을 유지할 수 있습니다.
 2. 실패한 작업을 현명하게 재시도할 수 있도록 준비하여 일반적인 네트워크 문제에 대한 복원력이 향상됩니다.
 
@@ -30,8 +31,8 @@ npm install axios axios-retry
 ```
 
 ```javascript
-import axios from "axios";
-import axiosRetry from "axios-retry";
+import axios from 'axios';
+import axiosRetry from 'axios-retry';
 
 // 자동 재시도 요청을 위한 axios-retry 구성
 axiosRetry(axios, {
@@ -41,10 +42,11 @@ axiosRetry(axios, {
 
 // 실패 시 재시도되는 axios 요청
 axios
-  .get("https://jsonplaceholder.typicode.com/posts/1")
+  .get('https://jsonplaceholder.typicode.com/posts/1')
   .then((response) => console.log(response.data))
   .catch((error) => console.error(error));
 ```
+
 ### retry
 
 패키지는 코드에 재시도 기능을 추가한 유연한 방법을 제공하고, 실패 시 여러 번 시도하려는 비동기 연산이나 로직 처리에 적합합니다. <br>
@@ -54,8 +56,8 @@ npm install retry
 ```
 
 ```javascript
-const retry = require("retry");
-const axios = require("axios"); // axios가 HTTP 요청에 사용된다고 가정해봅시다.
+const retry = require('retry');
+const axios = require('axios'); // axios가 HTTP 요청에 사용된다고 가정해봅시다.
 
 async function fetchData(url) {
   const operation = retry.operation({
@@ -68,20 +70,29 @@ async function fetchData(url) {
   operation.attempt(async (currentAttempt) => {
     try {
       const response = await axios.get(url);
-      console.log("Data:", response.data);
+      console.log('Data:', response.data);
     } catch (error) {
       console.log(`Attempt ${currentAttempt} failed: ${error.message}`);
       if (operation.retry(error)) {
         console.log(`Retrying...`);
         return;
       }
-      console.error("Request failed after retries:", error.message);
+      console.error('Request failed after retries:', error.message);
     }
   });
 }
 
-fetchData("https://jsonplaceholder.typicode.com/posts/1");
+fetchData('https://jsonplaceholder.typicode.com/posts/1');
 ```
 
-> [원문](https://anu95.medium.com/implement-retry-logic-using-javascript-e502693e0b5c)
+## 재시도 로직 구현을 위한 모범 사례
 
+- 재시도 시기 결정 <br>
+  모든 오류에 대해 재시도가 발생하면 안됩니다. <br>
+  오류가 일시적인것인지, 후속 시도를 통해 해결될 가능성이 있는지 고려해야합니다.
+- 재시도 제한 <br>
+  무한 루프를 방지하기 위해 최대 재시도 횟수를 설정해야합니다.
+- 사용자 경험 주시 <br>
+  클라이언트 애플리케이션에서 재시도 로직이 사용자 환경을 저하하지 않도록 해야 합니다.
+
+> [원문](https://anu95.medium.com/implement-retry-logic-using-javascript-e502693e0b5c)
