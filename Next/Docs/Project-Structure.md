@@ -37,18 +37,16 @@ public : 정적 파일 관리
 
 ---
 
-```
-
-layout	       |  .js .jsx .tsx	  |  Layout
-page	       |  .js .jsx .tsx	  |  Page
-loading	       |  .js .jsx .tsx	  |  Loading UI
-not-found	   |  .js .jsx .tsx	  |  Not found UI
-error	       |  .js .jsx .tsx	  |  Error UI
-global-error   |  .js .jsx .tsx	  |  Global error UI
-route	       |  .js .ts	      |  API endpoint
-template	   |  .js .jsx .tsx	  |  Re-rendered layout
-default	       |  .js .jsx .tsx	  |  Parallel route fallback page
-
-```
+| 파일         | 파일 유형     | 역할                              |
+| ------------ | ------------- | --------------------------------- |
+| layout       | .js .jsx .tsx | 애플리케이션의 레이아웃을 정의    |
+| page         | .js .jsx .tsx | 각각의 페이지 컴포넌트            |
+| loading      | .js .jsx .tsx | 로딩 UI를 정의                    |
+| not-found    | .js .jsx .tsx | "페이지를 찾을 수 없음" UI를 정의 |
+| error        | .js .jsx .tsx | 에러 UI를 정의                    |
+| global-error | .js .jsx .tsx | 전역 에러 UI를 정의               |
+| route        | .js .ts       | API 엔드포인트                    |
+| template     | .js .jsx .tsx | 다시 랜더링되는 레이아웃          |
+| default      | .js .jsx .tsx | 병렬 경로의 폴백 페이지를 정의    |
 
 ---
